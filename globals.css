@@ -1,0 +1,393 @@
+/* =====================================================================
+   VALENTINA OPS PANEL — Tasarım Tokenleri
+   Tema: "Obsidyen + Pirinç" — bir kontrol odası / enstrüman paneli hissi.
+   ===================================================================== */
+
+:root {
+  --bg: #0a0b0d;
+  --bg-grid: rgba(201, 162, 39, 0.035);
+  --panel: #14171c;
+  --panel-alt: #1b1f26;
+  --border: rgba(201, 162, 39, 0.18);
+  --border-strong: rgba(201, 162, 39, 0.38);
+
+  --gold: #c9a227;
+  --gold-bright: #e8c547;
+  --text: #ece9e1;
+  --text-muted: #8b8d93;
+  --text-faint: #5b5d63;
+
+  --success: #4fa179;
+  --danger: #c1503f;
+  --warning: #d2a146;
+
+  --font-display: 'Space Grotesk', 'Inter', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+
+  --radius: 3px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background:
+    linear-gradient(var(--bg-grid) 1px, transparent 1px) 0 0 / 100% 28px,
+    var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  background: rgba(201, 162, 39, 0.3);
+  color: var(--gold-bright);
+}
+
+/* ---------------------------------------------------------------------
+   SHELL / LAYOUT
+   --------------------------------------------------------------------- */
+
+.shell {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 32px 20px 80px;
+}
+
+/* ---------------------------------------------------------------------
+   HEADER
+   --------------------------------------------------------------------- */
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 24px;
+  margin-bottom: 28px;
+  border-bottom: 1px solid var(--border);
+}
+
+.brand-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin: 0 0 6px;
+}
+
+.brand-title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: var(--text);
+}
+
+.brand-title span {
+  color: var(--gold-bright);
+}
+
+.header-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background: var(--panel);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-faint);
+  flex-shrink: 0;
+}
+
+.pulse-dot.online {
+  background: var(--success);
+  box-shadow: 0 0 0 0 rgba(79, 161, 121, 0.6);
+  animation: pulse 2.2s ease-out infinite;
+}
+
+.pulse-dot.offline {
+  background: var(--danger);
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(79, 161, 121, 0.55);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(79, 161, 121, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(79, 161, 121, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse-dot.online {
+    animation: none;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   GRID / MODULES (nameplate style panels)
+   --------------------------------------------------------------------- */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 20px;
+}
+
+.col-4 { grid-column: span 4; }
+.col-5 { grid-column: span 5; }
+.col-6 { grid-column: span 6; }
+.col-7 { grid-column: span 7; }
+.col-8 { grid-column: span 8; }
+.col-12 { grid-column: span 12; }
+
+@media (max-width: 860px) {
+  .col-4,
+  .col-5,
+  .col-6,
+  .col-7,
+  .col-8 {
+    grid-column: span 12;
+  }
+}
+
+.module {
+  position: relative;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px 20px 20px;
+}
+
+.module::before {
+  content: attr(data-tag);
+  position: absolute;
+  top: -11px;
+  left: 16px;
+  background: var(--bg);
+  padding: 0 8px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+.module h2 {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 600;
+  margin: 0 0 16px;
+  color: var(--text);
+}
+
+.module-note {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--text-faint);
+  margin-top: 14px;
+}
+
+/* ---------------------------------------------------------------------
+   SUNUCU MODÜLÜ
+   --------------------------------------------------------------------- */
+
+.server-ip {
+  font-family: var(--font-mono);
+  font-size: 22px;
+  color: var(--gold-bright);
+  letter-spacing: 0.01em;
+  word-break: break-all;
+}
+
+.server-stats {
+  display: flex;
+  gap: 28px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stat-value {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  color: var(--text);
+}
+
+.stat-label {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ---------------------------------------------------------------------
+   DISCORD WIDGET
+   --------------------------------------------------------------------- */
+
+.widget-frame {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--panel-alt);
+}
+
+.widget-frame iframe {
+  display: block;
+  width: 100%;
+  border: none;
+}
+
+/* ---------------------------------------------------------------------
+   LİSTELER
+   --------------------------------------------------------------------- */
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(201, 162, 39, 0.08);
+  font-size: 14px;
+}
+
+.list li:last-child {
+  border-bottom: none;
+}
+
+.rank {
+  font-family: var(--font-mono);
+  color: var(--gold);
+  width: 22px;
+  flex-shrink: 0;
+  font-size: 13px;
+}
+
+.entry-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text);
+}
+
+.entry-value {
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--success);
+}
+
+.badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--success);
+}
+
+.reason-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--danger);
+}
+
+/* ---------------------------------------------------------------------
+   BOŞ DURUM
+   --------------------------------------------------------------------- */
+
+.empty-state {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-faint);
+  padding: 12px 0;
+}
+
+/* ---------------------------------------------------------------------
+   FOOTER
+   --------------------------------------------------------------------- */
+
+.footer {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--text-faint);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Klavye erişilebilirliği için görünür odak halkası */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--gold-bright);
+  outline-offset: 2px;
+}
